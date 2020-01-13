@@ -3,6 +3,7 @@
   width: 100%;
   height: 100%;
   background-image: url('bg.jpg');
+  background-size: 100%;
 }
 .login .login-header {
   display: flex;
