@@ -3,8 +3,13 @@
  */
 //  prevState =11 为默认值
 import { combineReducers } from "redux";
-function aaa(prevState = 11, action) {
+import { SAVE_USER } from "./action-types";
+import { getItem } from "../utils/storage";
+const initUser = getItem("user") || {};
+function user(prevState = initUser, action) {
   switch (action.type) {
+    case SAVE_USER:
+      return action.data;
     default:
       return prevState;
   }
@@ -17,6 +22,6 @@ function bbb(prevState = 11, action) {
   }
 }
 export default combineReducers({
-  aaa,
+  user,
   bbb
 });

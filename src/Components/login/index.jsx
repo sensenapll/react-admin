@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Form, Input, Button, Icon, message } from "antd";
-import axios from "axios";
+import { connect } from "react-redux";
+import { saveUserAsync } from "../../redux/action";
 import logo from "./logo.png";
 import "./index.less";
 const { Item } = Form;
 // import create from "antd/lib/icon/IconFont";
 @Form.create()
+@connect(null, { saveUserAsync })
 class Login extends Component {
   // 自定义表单验证
   validator = (rule, value, callback) => {
@@ -65,7 +67,8 @@ class Login extends Component {
         // 表单校验成功
         const { username, password } = values;
         // 发送请求,请求登录
-        axios
+        //#region
+        /*axios
           .post("/api/login", { username, password })
           .then(res => {
             // 判断是否登录成功
@@ -90,6 +93,17 @@ class Login extends Component {
             message.error("网络错误");
             // 清除密码框
             this.props.form.resetFields(["password"]);
+          });*/
+        //#endregion
+        // 得到登录成功/失败
+        this.props
+          .saveUserAsync(username, password)
+          .then(() => {
+            this.props.history.replace("/");
+          })
+          .catch(msg => {
+            message.error(msg);
+            this.props.form.resetFields(['password']);
           });
       }
     });
