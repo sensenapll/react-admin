@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { Form, Input, Button, Icon, message } from "antd";
 import { connect } from "react-redux";
 import { saveUserAsync } from "../../redux/action";
-import logo from "./logo.png";
+import withCheckLogin from "../../containers/with-check-login";
+import logo from '../../assets/imgs/logo.png';
 import "./index.less";
 const { Item } = Form;
 // import create from "antd/lib/icon/IconFont";
+@withCheckLogin
 @Form.create()
 @connect(null, { saveUserAsync })
 class Login extends Component {
@@ -103,7 +105,7 @@ class Login extends Component {
           })
           .catch(msg => {
             message.error(msg);
-            this.props.form.resetFields(['password']);
+            this.props.form.resetFields(["password"]);
           });
       }
     });
