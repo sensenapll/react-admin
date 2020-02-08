@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Layout, Menu, Breadcrumb, Icon } from "antd";
-import logo from '../../assets/imgs/logo.png';
-import './index.less';
+import { Layout, Breadcrumb } from "antd";
+import LeftNav from './left-nav/index';
+import logo from "../../assets/imgs/logo.png";
+import "./index.less";
 const { Header, Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu;
+
 
 export default class BasicLayout extends Component {
   state = {
@@ -13,16 +14,16 @@ export default class BasicLayout extends Component {
 
   onCollapse = collapsed => {
     console.log(collapsed);
-    const {isDisplay} =this.state;
-    this.setState({ 
-        collapsed,
-        isDisplay: !isDisplay
+    const { isDisplay } = this.state;
+    this.setState({
+      collapsed,
+      isDisplay: !isDisplay
     });
   };
 
   render() {
-      const {children } = this.props;
-      const {isDisplay,collapsed} =this.state
+    const { children } = this.props;
+    const { isDisplay, collapsed } = this.state;
     return (
       <Layout style={{ minHeight: "100vh" }}>
         <Sider
@@ -30,50 +31,11 @@ export default class BasicLayout extends Component {
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
         >
-          <div className="layout-logo" >
-              <img src={logo} alt=''logo/>
-              <h1 style={{display:isDisplay?'block' :'none'}}>百度后台</h1>
+          <div className="layout-logo">
+            <img src={logo} alt="" logo />
+            <h1 style={{ display: isDisplay ? "block" : "none" }}>百度后台</h1>
           </div>
-          
-          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-            <Menu.Item key="1">
-              <Icon type="pie-chart" />
-              <span>Option 1</span>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Icon type="desktop" />
-              <span>Option 2</span>
-            </Menu.Item>
-            <SubMenu
-              key="sub1"
-              title={
-                <span>
-                  <Icon type="user" />
-                  <span>User</span>
-                </span>
-              }
-            >
-              <Menu.Item key="3">Tom</Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub2"
-              title={
-                <span>
-                  <Icon type="team" />
-                  <span>Team</span>
-                </span>
-              }
-            >
-              <Menu.Item key="6">Team 1</Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9">
-              <Icon type="file" />
-              <span>File</span>
-            </Menu.Item>
-          </Menu>
+          <LeftNav/>
         </Sider>
         <Layout>
           <Header style={{ background: "#fff", padding: 0 }} />
